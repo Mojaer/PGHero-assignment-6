@@ -1,10 +1,12 @@
-const phoneLoads = async () => {
+const phoneLoads = async (load) => {
     const url = 'https://openapi.programming-hero.com/api/ai/tools'
     try {
         const resource = await fetch(url);
         const data = await resource.json();
 
-        dataLoad(data.data.tools)
+        const loadData = load ? data.data.tools.slice(0, 6) : data.data.tools
+        console.log(loadData)
+        dataLoad(loadData)
     }
     catch (err) {
         console.log(err)
@@ -52,5 +54,13 @@ const dataLoad = (phones) => {
     });
 
 }
+let seeMore = true
 
-phoneLoads()
+document.getElementById('seeMore').addEventListener('click', () => {
+    document.getElementById('cards').innerHTML = ''
+    seeMore = !seeMore
+    phoneLoads(seeMore)
+
+})
+phoneLoads(seeMore)
+

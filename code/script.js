@@ -31,20 +31,24 @@ const dataLoad = (phones) => {
 
         cardItems.innerHTML = `
 <div class="col">
-                <div class="card">
-                    <img src="${image}" class="rounded card-img-top p-4 w-100 " alt="...">
+                <div class="card ">
+                    <img src="${image}" class="img-fluid rounded card-img-top p-4 w-100 " alt="...">
                     <div class="card-body p-4">
                         <h5 class="card-title fw-bold">Features</h5>
-                        <p class="card-text">${features}</p>
                         <ol id="${id}">${featureList}</ol>
+                        <hr>
         
                          <div class="d-flex justify-content-between">
                             <div>
                                 <h5 class="card-title fw-bold">${name}</h5>
-                                <p class="card-text "><i class="fas fa-calendar-alt"></i>${published_in}</p>
+                                <p class="card-text "><i class="fas fa-calendar-alt"></i> ${published_in}</p>
                             </div>
-                            <button class="btn btn-light rounded-circle text-danger p-3"><i
-                                    class="fas fa-arrow-right"></i></button>
+
+                      
+                            <button type="button" class="btn btn-light rounded-circle text-danger p-3" data-bs-toggle="modal"
+            data-bs-target="#AImodal">
+            <i class="fas fa-arrow-right"></i>
+                            </button>
                         </div>
                     </div>
                 </div>

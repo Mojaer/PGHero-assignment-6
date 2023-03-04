@@ -1,23 +1,25 @@
 const phoneLoads = async (load) => {
+    toggleSpinner(true)
     const url = 'https://openapi.programming-hero.com/api/ai/tools'
+
     try {
         const resource = await fetch(url);
         const data = await resource.json();
 
         const loadData = load ? data.data.tools.slice(0, 6) : data.data.tools
-        console.log(loadData)
+
         dataLoad(loadData)
     }
     catch (err) {
-        console.log(err)
+        alert(err.message)
     }
 
 }
 
 const dataLoad = (phones) => {
-    ;
-
+    toggleSpinner(false)
     phones.forEach(phone => {
+
 
         const { id, image, name, features, published_in } = phone
 
@@ -54,11 +56,18 @@ const dataLoad = (phones) => {
     });
 
 }
+
+const toggleSpinner = (toggle) => {
+    const toggler = document.getElementById('spinner')
+    if (!toggle) { toggler.classList.add('d-none') }
+    else { toggler.classList.remove('d-none') }
+}
+
 let seeMore = true
 
 document.getElementById('seeMore').addEventListener('click', () => {
     document.getElementById('cards').innerHTML = ''
-    seeMore = !seeMore
+    if (seeMore == true) { seeMore = false }
     phoneLoads(seeMore)
 
 })

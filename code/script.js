@@ -72,7 +72,7 @@ const modalOpen = async (id) => {
 
     const resource = await fetch(url)
     const data = await resource.json()
-    const { image_link, input_output_examples, description, pricing, features, integrations } = data.data
+    const { image_link, input_output_examples, description, pricing, features, integrations, accuracy } = data.data
 
 
     const idCatcher = (id) => {
@@ -87,9 +87,10 @@ const modalOpen = async (id) => {
 
     idCatcher('title')[0].innerText = description
 
-    idCatcher('pricing')[0].innerText = pricing[0].price
-    idCatcher('pricing')[1].innerText = pricing[1].price
-    idCatcher('pricing')[2].innerText = pricing[2].price
+
+    idCatcher('pricing')[0].innerText = pricing[0].price === '0' || pricing[0].plan === 'Free' ? 'Free of cost/basic' : pricing[0].price
+    idCatcher('pricing')[1].innerText = pricing[1].price === 'No cost' ? 'Free of cost/pro' : pricing[1].price
+    idCatcher('pricing')[2].innerText = pricing[2].plan === 'Free' ? 'Free of cost/Enterprise' : pricing[2].price
 
     const feature = Object.values(features)
 

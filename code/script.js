@@ -79,20 +79,25 @@ const modalOpen = async (id) => {
         const idComponent = document.getElementById(id).children
         return idComponent
     }
-
+    // right side materials of modal ----------------------------------------------------------------------
     idCatcher('img_part')[0].src = image_link[0]
-    idCatcher('img_part')[1].innerText = input_output_examples[0].input
-    idCatcher('img_part')[2].innerText = input_output_examples[0].output
+    idCatcher('img_part')[2].innerText = input_output_examples[0].input
+    idCatcher('img_part')[3].innerText = input_output_examples[0].output
 
 
+    const accuracyField = document.getElementById('accuracy')
+    accuracyField.style.display = accuracy.score === null ? 'none' : 'block'
+    accuracyField.innerText = accuracy.score === null ? '' : `${accuracy.score * 100}% accuracy `
+
+
+
+    // left side material of modals ------------------------------------------------------------------------------------------------------
     idCatcher('title')[0].innerText = description
-
-
     idCatcher('pricing')[0].innerText = pricing[0].price === '0' || pricing[0].plan === 'Free' ? 'Free of cost/basic' : pricing[0].price
     idCatcher('pricing')[1].innerText = pricing[1].price === 'No cost' ? 'Free of cost/pro' : pricing[1].price
     idCatcher('pricing')[2].innerText = pricing[2].plan === 'Free' ? 'Free of cost/Enterprise' : pricing[2].price
 
-    const feature = Object.values(features)
+    const feature = Object.values(features);
 
     document.getElementById('features').innerHTML = ''
     feature.forEach(feature => {

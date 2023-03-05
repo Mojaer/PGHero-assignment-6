@@ -13,10 +13,8 @@ const phoneLoads = async (load, date_sort) => {
                 return c - d;
             }
             );
-            console.log(loadData)
 
         }
-
         const loadData = load ? data.data.tools.slice(0, 6) : data.data.tools
 
 

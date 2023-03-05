@@ -46,7 +46,7 @@ const dataLoad = (phones) => {
 
                       
                             <button type="button" class="btn btn-light rounded-circle text-danger p-3" data-bs-toggle="modal"
-            data-bs-target="#AImodal">
+            data-bs-target="#AImodal"  onClick= "modalOpen(${id})">
             <i class="fas fa-arrow-right"></i>
                             </button>
                         </div>
@@ -58,6 +58,39 @@ const dataLoad = (phones) => {
 
 
     });
+
+}
+
+const modalOpen = async (id) => {
+    id = id < 10 ? '0' + id : id
+    const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`
+
+    const resource = await fetch(url)
+    const data = await resource.json()
+    const { image_link, input_output_examples, description, pricing } = data.data
+
+
+    const idCatcher = (id) => {
+        const idComponent = document.getElementById(id).children
+        return idComponent
+    }
+
+    idCatcher('img_part')[0].src = image_link[0]
+    idCatcher('img_part')[1].innerText = input_output_examples[0].input
+    idCatcher('img_part')[2].innerText = input_output_examples[0].output
+    console.log(input_output_examples)
+
+    idCatcher('title')[0].innerText = description
+
+    idCatcher('pricing')[0].innerText = pricing[0].price
+    idCatcher('pricing')[1].innerText = pricing[1].price
+    idCatcher('pricing')[2].innerText = pricing[2].price
+
+
+
+
+
+
 
 }
 

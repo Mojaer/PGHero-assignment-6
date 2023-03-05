@@ -80,22 +80,32 @@ const modalOpen = async (id) => {
         return idComponent
     }
     // right side materials of modal ----------------------------------------------------------------------
+    const inputText = input_output_examples === null ? 'Can you give any example?' : input_output_examples[0].input
+    const outputText = input_output_examples === null ? 'No! Not Yet! Take a break!!!' : input_output_examples[0].output
+
     idCatcher('img_part')[0].src = image_link[0]
-    idCatcher('img_part')[2].innerText = input_output_examples[0].input
-    idCatcher('img_part')[3].innerText = input_output_examples[0].output
+    idCatcher('img_part')[2].innerText = inputText
+    idCatcher('img_part')[3].innerText = outputText
 
 
     const accuracyField = document.getElementById('accuracy')
-    accuracyField.style.display = accuracy.score === null ? 'none' : 'block'
-    accuracyField.innerText = accuracy.score === null ? '' : `${accuracy.score * 100}% accuracy `
+
+    if (accuracy.score === null) {
+        accuracyField.style.visibility = "hidden";
+    }
+    else {
+        accuracyField.innerText = `${accuracy.score * 100}% accuracy`
+        accuracyField.style.visibility = 'visible'
+    }
+
 
 
 
     // left side material of modals ------------------------------------------------------------------------------------------------------
     idCatcher('title')[0].innerText = description
-    idCatcher('pricing')[0].innerText = pricing[0].price === '0' || pricing[0].plan === 'Free' ? 'Free of cost/basic' : pricing[0].price
-    idCatcher('pricing')[1].innerText = pricing[1].price === 'No cost' ? 'Free of cost/pro' : pricing[1].price
-    idCatcher('pricing')[2].innerText = pricing[2].plan === 'Free' ? 'Free of cost/Enterprise' : pricing[2].price
+    idCatcher('pricing')[0].innerText = pricing === null || pricing[0].plan === 'Free' ? 'Free of cost/basic' : pricing[0].price
+    idCatcher('pricing')[1].innerText = pricing === null ? 'Free of cost/pro' : pricing[1].price
+    idCatcher('pricing')[2].innerText = pricing === null ? 'Free of cost/Enterprise' : pricing[2].price
 
     const feature = Object.values(features);
 
@@ -110,10 +120,17 @@ const modalOpen = async (id) => {
 
     let featureList = '';
     document.getElementById('integrations').innerHTML = ''
-    integrations.forEach(integration => {
+    if (integrations === null) {
+        featureList += '<li style="list-style-type: none;">no data found</li>'
+    }
+    else {
+        integrations.forEach(integration => {
 
-        featureList += '<li>' + integration + '</li>'
-    })
+            featureList += '<li >' + integration + '</li>'
+        })
+    }
+
+
 
     document.getElementById('integrations').innerHTML = featureList
 

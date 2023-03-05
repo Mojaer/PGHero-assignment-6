@@ -18,3 +18,5 @@ Single data Example: https://openapi.programming-hero.com/api/ai/tool/01
 link : https://github.com/ProgrammingHero1/AI-universe-hub
 
 code : https://github.com/programming-hero-web-course2/b7a6-ai-universe-assignment-Mojaer
+
+deployed netlify link: https://neon-souffle-3b3626.netlify.app/

@@ -1,12 +1,24 @@
-const phoneLoads = async (load) => {
+const phoneLoads = async (load, date_sort) => {
     toggleSpinner(true)
     const url = 'https://openapi.programming-hero.com/api/ai/tools'
 
     try {
         const resource = await fetch(url);
         const data = await resource.json();
+        if (date_sort) {
+            const loadData = data.data.tools
+            loadData.sort(function (a, b) {
+                var c = new Date(a.published_in);
+                var d = new Date(b.published_in);
+                return c - d;
+            }
+            );
+            console.log(loadData)
+
+        }
 
         const loadData = load ? data.data.tools.slice(0, 6) : data.data.tools
+
 
         dataLoad(loadData)
     }
@@ -34,7 +46,7 @@ const dataLoad = (phones) => {
         cardItems.innerHTML = `
 <div class="col">
                 <div class="card ">
-                    <img src="${image}" class="img-fluid rounded card-img-top p-4 w-100 " alt="...">
+                    <img src="${image}" class="card-img-top p-4 w-100 " alt="...">
                     <div class="card-body p-4">
                         <h5 class="card-title fw-bold">Features</h5>
                         <ol id="${id}">${featureList}</ol>
@@ -149,12 +161,25 @@ const toggleSpinner = (toggle) => {
 //see more function---------------------------------------------------------------------
 
 let seeMore = true
+let date_sort = false
 
 document.getElementById('seeMore').addEventListener('click', () => {
     document.getElementById('cards').innerHTML = ''
     if (seeMore == true) { seeMore = false }
-    phoneLoads(seeMore)
+    phoneLoads(seeMore, date_sort)
 
 })
-phoneLoads(seeMore)
+
+// see by date function----------------------------------------------------------------------
+
+
+document.getElementById('date_sort').addEventListener('click', () => {
+    document.getElementById('cards').innerHTML = ''
+    if (date_sort == false) { date_sort = true }
+    phoneLoads(seeMore, date_sort)
+
+})
+
+
+phoneLoads(seeMore, date_sort)
 

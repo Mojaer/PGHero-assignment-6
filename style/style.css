@@ -1,6 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&display=swap');
+
+* {
+    font-family: 'Work Sans', sans-serif;
+}
+
+
+
 #accuracy {
     right: 5.5rem;
     top: 3rem;
 
     width: 15%;
+}
+
+#title {
+    background-color: rgba(235, 87, 87, 0.05);
+
+}
+
+#img_part {
+    border: 1px solid #E7E7E7;
+    border-radius: 16px;
+}
+
+img {
+    border-radius: 16px;
 }

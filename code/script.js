@@ -16,6 +16,8 @@ const phoneLoads = async (load) => {
 
 }
 
+// load data function --------------------------------------------------------------------------------
+
 const dataLoad = (phones) => {
     toggleSpinner(false)
     phones.forEach(phone => {
@@ -61,13 +63,16 @@ const dataLoad = (phones) => {
 
 }
 
+// Modal function------------------------------------------------------------------------
+
 const modalOpen = async (id) => {
+
     id = id < 10 ? '0' + id : id
     const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`
 
     const resource = await fetch(url)
     const data = await resource.json()
-    const { image_link, input_output_examples, description, pricing } = data.data
+    const { image_link, input_output_examples, description, pricing, features, integrations } = data.data
 
 
     const idCatcher = (id) => {
@@ -78,7 +83,7 @@ const modalOpen = async (id) => {
     idCatcher('img_part')[0].src = image_link[0]
     idCatcher('img_part')[1].innerText = input_output_examples[0].input
     idCatcher('img_part')[2].innerText = input_output_examples[0].output
-    console.log(input_output_examples)
+
 
     idCatcher('title')[0].innerText = description
 
@@ -86,19 +91,39 @@ const modalOpen = async (id) => {
     idCatcher('pricing')[1].innerText = pricing[1].price
     idCatcher('pricing')[2].innerText = pricing[2].price
 
+    const feature = Object.values(features)
+
+    document.getElementById('features').innerHTML = ''
+    feature.forEach(feature => {
+        const li = document.createElement('li')
+        li.innerHTML = feature.feature_name;
+
+        document.getElementById('features').appendChild(li);
+    })
 
 
+    let featureList = '';
+    document.getElementById('integrations').innerHTML = ''
+    integrations.forEach(integration => {
 
+        featureList += '<li>' + integration + '</li>'
+    })
+
+    document.getElementById('integrations').innerHTML = featureList
 
 
 
 }
+
+//spinner function-------------------------------------------------------------------
 
 const toggleSpinner = (toggle) => {
     const toggler = document.getElementById('spinner')
     if (!toggle) { toggler.classList.add('d-none') }
     else { toggler.classList.remove('d-none') }
 }
+
+//see more function---------------------------------------------------------------------
 
 let seeMore = true
 
